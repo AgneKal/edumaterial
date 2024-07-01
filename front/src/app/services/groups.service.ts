@@ -23,7 +23,7 @@ export class GroupsService {
   }
   
   public updateGroup(group: Group){
-    return this.http.put<Group>('http://localhost:1212/groups', group);
+    return this.http.put<Group>('http://localhost:1212/groups/'+group.id, group);
   }
 
   public deleteGroup(id: number){

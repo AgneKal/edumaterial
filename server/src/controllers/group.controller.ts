@@ -44,14 +44,14 @@ export class GroupController {
         const group: Group = req.body;
 
         const sql = "UPDATE `groups` SET title=?, start=?, end=?, lecturer_id=?, course_id=? WHERE id=?";
-        const [result, fields] = await pool.query(sql, [group.title, group.start, group.end, group.lecturer_id, group.course_id, req.body.id]);
+        const [result, fields] = await pool.query(sql, [group.title, group.start, group.end, group.lecturer_id, group.course_id, req.params.id]);
     
         const sql2 = "DELETE FROM groups_students WHERE group_id=?";
-        await pool.query(sql2, [req.body.id]);
+        await pool.query(sql2, [req.params.id]);
 
         group.students.forEach(async (student: Student) => {
             const sql="INSERT INTO groups_students (group_id, student_id) VALUES (?, ?)";
-            await pool.query(sql, [req.body.id, student.id] );
+            await pool.query(sql, [req.params.id, student.id] );
         });
 
 

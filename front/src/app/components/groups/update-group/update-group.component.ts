@@ -85,7 +85,7 @@ export class UpdateGroupComponent {
   }
   
   public groupSubmit(form: NgForm){
-    this.groupsService.updateGroup({id: this.id, ...form.form.value}).subscribe({
+    this.groupsService.updateGroup({id: this.route.snapshot.params['id'], ...form.form.value, lectures: this.groupLectures, students: this.groupStudents}).subscribe({
       next: (data) => {
         console.log(data);
         this.router.navigate(['groups', 'list']);
