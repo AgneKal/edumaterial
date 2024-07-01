@@ -4,6 +4,8 @@ import { LecturesService } from '../../../services/lectures.service';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { GroupsService } from '../../../services/groups.service';
+import { Group } from '../../../models/group';
 
 @Component({
   selector: 'app-list-lectures',
@@ -14,7 +16,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ListLecturesComponent {
   public lectures: Lecture[] = [];
-
+  
   private loadLectures(){
     this.lecturesService.getLectures().subscribe((data) => {
       this.lectures = data;

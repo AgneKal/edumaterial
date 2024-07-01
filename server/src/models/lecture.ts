@@ -6,4 +6,5 @@ export interface Lecture extends RowDataPacket{
     lecture_date: Date;
     description: string;
     group_id: number;
+    group_title: string;
 }

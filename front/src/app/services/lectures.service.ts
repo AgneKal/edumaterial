@@ -32,15 +32,17 @@ export class LecturesService {
     return this.http.post<Lecture>('http://localhost:1212/lectures', formData);
   }
   
-  public updateLecture(lecture: Lecture, files: any){
+  public updateLecture(lecture: Lecture){
     const formData:any = new FormData();
     formData.append('id', lecture.id);
     formData.append('title', lecture.title!);
     formData.append('lecture_date', lecture.lecture_date);
     formData.append('description', lecture.description!);
     if (lecture.group_id) formData.append('group_id', lecture.group_id);
-    formData.append('files', files);
-    return this.http.put<Lecture>('http://localhost:1212/lectures', formData);
+    for (var i = 0; i < lecture.files.length; i++) { 
+      formData.append('files', lecture.files[i]);
+    }
+    return this.http.put<Lecture>('http://localhost:1212/lectures/'+lecture.id, formData);
   }
 
   public deleteLecture(id: number){

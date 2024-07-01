@@ -17,6 +17,12 @@
                 <label for="" class="form-label">Data</label>
                 <input type="datetime-local" class="form-control" name="lecture_date" value="" ngModel formControlName="lecture_date">
             </div>
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Grupė</label>
+                <select class="form-control" ngModel formControlName="group_id" name="group_id">
+                    <option *ngFor="let group of groups; let i=index" [value]="group.id">{{ group.title }}</option>
+                </select>
+            </div>
             <div>
                 <input type="file" name="files" multiple formControlName="files" (change)="onFileChange($event)">
             </div>

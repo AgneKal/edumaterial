@@ -15,6 +15,7 @@ export class Lecture{
         public description: string,
         public group_id: number,
         public files: Files[],
+        public group_title?: string,
         public id?: number,
     ){}
 }

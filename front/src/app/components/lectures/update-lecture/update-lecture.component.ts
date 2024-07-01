@@ -5,6 +5,8 @@ import { ErrorComponent } from '../../helper/error/error.component';
 import { LecturesService } from '../../../services/lectures.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Files, Lecture } from '../../../models/lecture';
+import { Group } from '../../../models/group';
+import { GroupsService } from '../../../services/groups.service';
 
 @Component({
   selector: 'app-update-lecture',
@@ -17,14 +19,19 @@ export class UpdateLectureComponent {
   public lectureForm: FormGroup;
   public uploadedFiles: Files[] = [];
   public filesList: Files[] = [];
+
   isError: boolean = false;
   errorText: any;
 
-  constructor (private route: ActivatedRoute, private lecturesService: LecturesService, private router: Router){
+  public groups: Group[] =[];
+  public group_id: number = 0;
+
+  constructor (private route: ActivatedRoute, private lecturesService: LecturesService, private groupsService: GroupsService, private router: Router){
     this.lectureForm = new FormGroup({
       'title': new FormControl(null),
       'description': new FormControl(null),
       'lecture_date': new FormControl(Date),
+      'group_id': new FormControl(null),
       'files': new FormControl(null),
     });
     this.lecturesService.getLecture(this.route.snapshot.params['id']).subscribe((lecture) => {
@@ -32,16 +39,22 @@ export class UpdateLectureComponent {
           title: lecture.title,
           description: lecture.description,
           lecture_date: lecture.lecture_date,
+          group_id: lecture.group_id,
           files: []
         });
         this.filesList = lecture.files
         this.lectureForm.updateValueAndValidity();;
       });
+    this.groupsService.getGroups().subscribe({
+      next:(groups) => {
+        this.groups = groups;
+      }
+    })
   }
 
   public lectureSubmit(){
     const values = this.lectureForm.value;
-    this.lecturesService.addLecture(new Lecture(values.title, values.lecture_date, values.description, values.group_id, this.uploadedFiles)).subscribe({
+    this.lecturesService.updateLecture(new Lecture(values.title, values.lecture_date, values.description, values.group_id, this.uploadedFiles, '', this.route.snapshot.params['id'])).subscribe({
       next:(data) => {
         this.router.navigate(['/lectures','list']);
       },

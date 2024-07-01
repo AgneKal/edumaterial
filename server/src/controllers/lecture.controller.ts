@@ -3,13 +3,13 @@ import { Lecture } from "../models/lecture";
 
 export class LectureController {
     static async getAll(req: any, res: any) {
-        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date FROM lectures l";
+        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, l.group_id AS group_id, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date, g.title AS group_title  FROM lectures l LEFT JOIN `groups` g ON g.id=l.group_id";
         const [result] = await pool.query<Lecture[]>(sql);
         res.json(result)
     }
 
     static async getLecture(req: any, res: any) {
-        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, DATE_FORMAT(l.lecture_date, '%Y-%m-%d% %H:%i') AS lecture_date FROM lectures l WHERE id=?";
+        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, l.group_id AS group_id, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date, g.title AS group_title  FROM lectures l LEFT JOIN `groups` g ON g.id=l.group_id WHERE l.id=?";
         const [result] = await pool.query<Lecture[]>(sql, [req.params.id]);
 
         if (result.length === 0){
@@ -52,9 +52,9 @@ export class LectureController {
 
     static async update(req: any, res: any){
         const sql = "UPDATE lectures SET title=?, lecture_date=?, description=?, group_id=? WHERE id=?";
-        await pool.query(sql, [req.body.title, req.body.lecture_date, req.body.description, req.body.group_id, req.params.id, req.params.id]);
+        await pool.query(sql, [req.body.title, req.body.lecture_date, req.body.description, req.body.group_id, req.params.id]);
         res.status(201).json({
-            success :true
+            success: true
         })
     }
 

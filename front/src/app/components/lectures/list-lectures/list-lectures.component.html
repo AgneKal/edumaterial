@@ -9,6 +9,7 @@
                     <th>Nr.</th>
                     <th>Pavadinimas</th>
                     <th>Data</th>
+                    <th>Grupė</th>
                     <th *ngIf="authService.canEditLecturesAndGroups()">Veiksmai</th>
                 </tr>
             </thead>
@@ -17,6 +18,7 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ lecture.title }}</td>
                     <td>{{ lecture.lecture_date.toString().substring(0, 10) }}</td>
+                    <td>{{ lecture.group_title }}</td>
                     <td *ngIf="authService.canEditLecturesAndGroups()">
                         <a class="btn btn-success" [routerLink]="['/lectures', lecture.id]">Redaguoti</a>&nbsp;&nbsp;
                         <button class="btn btn-danger" (click)="deleteCourse(lecture.id!)">Ištrinti</button>

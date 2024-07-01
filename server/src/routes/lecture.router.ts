@@ -19,7 +19,7 @@ const lectureRouter = express.Router();
 lectureRouter.get('/', authMiddleware, lecturerMiddleware, LectureController.getAll);
 lectureRouter.get('/:id', authMiddleware, lecturerMiddleware, LectureController.getLecture);
 lectureRouter.post('/', authMiddleware, lecturerMiddleware, upload.array('files'), LectureController.insert);
-lectureRouter.put('/:id', authMiddleware, lecturerMiddleware, LectureController.update);
+lectureRouter.put('/:id', authMiddleware, lecturerMiddleware, upload.array('files'), LectureController.update);
 lectureRouter.delete('/:id', authMiddleware, lecturerMiddleware, LectureController.delete);
  
 export { lectureRouter }

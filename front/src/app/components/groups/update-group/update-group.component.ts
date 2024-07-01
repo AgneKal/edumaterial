@@ -67,7 +67,6 @@ export class UpdateGroupComponent {
 
     this.groupsService.getGroup(this.route.snapshot.params['id']).subscribe({
       next: ([group]) => {
-        console.log(group);
         this.title = group.title;
         this.start = group.start;
         this.end = group.end;
