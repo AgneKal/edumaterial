@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Grupių sąrašas</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Eilės Nr.</th>
+                            <th>Grupės pavadinimas</th>
+                            <th>Kursas</th>
+                            <th>Pradžia</th>
+                            <th>Pabaiga</th>
+                            <th>Dėstytojas</th>
+                            <th>Veiksmai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let group of groups; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ group.title }}</td>
+                            <td>{{ group.courses_title }}</td>
+                            <td>{{ group.start!.toString().substring(0, 10) }}</td>
+                            <td>{{ group.end!.toString().substring(0, 10) }}</td>
+                            <td>{{ group.lecturer }}</td>
+
+                            <td *ngIf="authService.canEditLecturesAndGroups()">
+                                <a class="btn btn-success" [routerLink]="['/groups', group.id]">Redaguoti</a>&nbsp;&nbsp;
+                                <button class="btn btn-danger" (click)="deleteGroup(group.id!)">Ištrinti</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

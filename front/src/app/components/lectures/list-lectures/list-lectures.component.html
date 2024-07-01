@@ -1,0 +1,28 @@
+<div class="card mt-3">
+    <div class="card-header">
+        Paskaitų sąrašas
+    </div>
+    <div class="card-body">
+        <table class="table col-md-12">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Pavadinimas</th>
+                    <th>Data</th>
+                    <th *ngIf="authService.canEditLecturesAndGroups()">Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lecture of lectures; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ lecture.title }}</td>
+                    <td>{{ lecture.lecture_date.toString().substring(0, 10) }}</td>
+                    <td *ngIf="authService.canEditLecturesAndGroups()">
+                        <a class="btn btn-success" [routerLink]="['/lectures', lecture.id]">Redaguoti</a>&nbsp;&nbsp;
+                        <button class="btn btn-danger" (click)="deleteCourse(lecture.id!)">Ištrinti</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

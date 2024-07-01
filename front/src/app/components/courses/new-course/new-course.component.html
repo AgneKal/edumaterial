@@ -1,0 +1,16 @@
+<app-error [isError]="isError" [text]="errorText"></app-error>
+<div *ngIf="!isError" class="card mt-3">
+    <div class="card-header">
+        Pridėti naują kursą
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="courseSubmit(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="title" value="" ngModel minlength="2" maxlength="64" required #inputName="ngModel">
+            </div>
+            <div *ngIf="!inputName.valid && inputName.touched">Klaidingai įvestas pavadinimas</div>
+            <button class="btn btn-success" type="submit">Pridėti</button>
+        </form>
+    </div>
+</div>

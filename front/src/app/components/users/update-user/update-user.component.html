@@ -1,0 +1,39 @@
+<div class="card mt-3">
+    <div class="card-header">Redaguoti vartotoją</div>
+    <div class="card-body">
+        <form (ngSubmit)="userSubmit(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">El. pašto adresas</label>
+                <input type="text" class="form-control" name="email" value="" ngModel [(ngModel)]="email">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Vardas</label>
+                <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pavardė</label>
+                <input type="text" class="form-control" name="surname" value="" ngModel [(ngModel)]="surname">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Telefono numeris</label>
+                <input type="text" class="form-control" name="phone" value="" ngModel [(ngModel)]="phone">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Slaptažodis</label>
+                <input type="password" class="form-control" name="password" value="" ngModel [(ngModel)]="password">
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Tipas</label>
+                <select class="form-control" name="type" ngModel [(ngModel)]="type">
+                    <option value="0">Administratorius</option>
+                    <option value="1">Dėstytojas</option>
+                    <option value="2">Studentas</option>
+                </select>
+
+            </div>
+            <button class="btn btn-success" type="submit">Atnaujinti</button>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<app-error [isError]="isError" [text]="errorText"></app-error>
+<div *ngIf="!isError" class="card mt-3">
+    <div class="card-header">
+        Pridėti naują paskaitą
+    </div>
+    <div class="card-body">
+        <form [formGroup]="lectureForm" (ngSubmit)="lectureSubmit()">
+            <div class=" mb-3">
+                <label for="" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="title" value="" ngModel minlength="2" maxlength="64" required formControlName="title">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Aprašymas</label>
+                <input type="text" class="form-control" name="description" value="" ngModel minlength="2" maxlength="255" formControlName="description">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Data</label>
+                <input type="datetime-local" class="form-control" name="lecture_date" value="" ngModel formControlName="lecture_date">
+            </div>
+            <div>
+                <input type="file" name="files" multiple formControlName="files" (change)="onFileChange($event)">
+            </div>
+            <ul name="filesList">
+                <li *ngFor="let file of filesList; let i=index">
+                    <a target="_blank" href="{{ file.url }}">
+                        {{ file.original_name }}
+                    </a>
+                </li>
+            </ul>
+            <button class="btn btn-success mt-3" type="submit">Pridėti</button>
+        </form>
+    </div>
+</div>

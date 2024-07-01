@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+
+        <a class="navbar-brand" routerLink="/">EduMaterial</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <div class="col-md-6">
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="courses/list">Kursų sąrašas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="courses/new">Naujas kursas</a>
+                    </li>
+                </div>
+                <div class="col-md-6">
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="groups/list">Grupių sąrašas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="groups/new">Nauja grupė</a>
+                    </li>
+                </div>
+                <div class="col-md-6">
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="lectures/list">Paskaitų sąrašas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="lectures/new">Nauja paskaita</a>
+                    </li>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="authService.canEditUsers()" routerLink="users/list" aria-current="page">Vartotojų sąrašas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="authService.canViewCourses()" routerLink="courses/myCourses" aria-current="page">Mano kursai</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <a routerLink="/auth/signin" class="btn btn-info mx-3" *ngIf="!isLoggedin">Registruotis</a>
+            <a routerLink="/auth/login" class="btn btn-success" *ngIf="!isLoggedin">Prisijungti</a>
+
+            <a routerLink="/profile" class="btn btn-success mx-3" *ngIf="isLoggedin">Mano profilis</a>
+            <button class="btn btn-primary" (click)="logoutClick()" *ngIf="isLoggedin">X</button>
+        </div>
+    </div>
+</nav>

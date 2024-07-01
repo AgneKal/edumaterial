@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-header">
+        Vartotojų sąrašas
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th></th>
+                    <th></th>
+                    <th>El. pašto adresas</th>
+                    <th>Vardas ir pavardė</th>
+                    <th>Tipas</th>
+                    <th>Veiksmai</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><img [src]="user.img" alt="" style="max-width: 100px;"></td>
+                    <td><a [href]="user.img" style="max-width: 100px;" class="btn btn-success">Parsiųsti </a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.name }} {{ user.surname }}</td>
+                    <td>{{ user.getTypeName() }}</td>
+
+                    <td>
+                        <a class="btn btn-success mx-3" [routerLink]="['/users', user.id]">Redaguoti</a>
+                        <a class="btn btn-danger" (click)="onDeleteClick(user.id!)">Ištrinti</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

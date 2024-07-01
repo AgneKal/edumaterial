@@ -1,0 +1,125 @@
+<app-error [isError]="isError" [text]="errorText"></app-error>
+<div *ngIf="!isError" class="card mt-3">
+    <div class="card-header fw-bold">
+        <h3>Pridėti naują Grupę</h3>
+    </div>
+    <div class="card-body">
+        <form id="ngForm" (ngSubmit)="groupSubmit(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Grupės pavadinimas</label>
+                <input type="text" class="form-control" name="title" value="" ngModel minlength="2" maxlength="64" required #inputName="ngModel" [(ngModel)]="title">
+                <div *ngIf="!inputName.valid && inputName.touched">Įvestas blogas pavadinimas</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Kursas</label>
+                <select class="form-control" [(ngModel)]="course_id" name="course_id">
+                    <option *ngFor="let course of courses; let i=index" [selected]="course.id == course_id" [value]="course.id">{{ course.title }}</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Dėstytojas</label>
+                <select class="form-control" [(ngModel)]="lecturer_id" name="lecturer_id">
+                    <option *ngFor="let lecturer of lecturers; let i=index" [selected]="lecturer.id == lecturer_id" [value]="lecturer.id">{{ lecturer.name }} {{ lecturer.surname }}</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Pradžia</label>
+                <input type="date" class="form-control" name="start" ngModel required #inputName="ngModel" [(ngModel)]="start">
+                <div *ngIf="!inputName.valid && inputName.touched">Nenurodyta grupės pradžia</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold">Pabaiga</label>
+                <input type="date" class="form-control" name="end" value="" ngModel required #inputName="ngModel" [(ngModel)]="end">
+                <div *ngIf="!inputName.valid && inputName.touched">Nenurodyta grupės pabaiga</div>
+            </div>
+
+            <hr class="mb-4 mt-4 text-info border-5">
+
+            <h3>Paskaitos</h3>
+            <div class="row">
+                <div class="col-md-7 mb-3">
+                    <select class="form-control" [(ngModel)]="lecture_id" name="lecture">
+                        <option *ngFor=" let lecture of lectures; let i=index" [value]="lecture.id">{{ lecture.title }} </option>
+                    </select>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <button type="button" class="btn btn-success" (click)="addLectureToGroup()">Pridėti</button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Eilės Nr.</th>
+                                <th>Pavadinimas</th>
+                                <th>Veiksmai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let groupLecture of groupLectures; let i=index; ">
+                                <td>{{ i+1 }}</td>
+                                <td>
+                                    {{ getLectureTitle(groupLecture.id) }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="deleteLecture(i)">Ištrinti</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr class="mb-4 mt-4 text-info border-5">
+
+            <h3>Studentai</h3>
+            <div class="row">
+                <div class="col-md-7 mb-3">
+                    <select class="form-control" [(ngModel)]="student_id" name="student">
+                        <option *ngFor="let student of students; let i=index" [value]="student.id">{{ student.name }} {{ student.surname }}</option>
+
+                    </select>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <button type="button" class="btn btn-success" (click)="addStudentToGroup()">Pridėti</button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Eilės Nr.</th>
+                                <th>Vardas</th>
+                                <th>Pavardė</th>
+                                <th>Veiksmai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let groupStudent of groupStudents; let i = index;">
+                                <td>{{ i+1 }}</td>
+                                <td>
+                                    {{ getStudentName(groupStudent.id) }}
+                                </td>
+                                <td>
+                                    {{ getStudentSurname(groupStudent.id) }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="deleteStudent(i)">Ištrinti</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button class="btn btn-info" type="submit">Atnaujinti</button>
+        </form>
+    </div>
+</div>
