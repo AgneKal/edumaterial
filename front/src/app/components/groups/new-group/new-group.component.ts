@@ -65,12 +65,12 @@ export class NewGroupComponent {
     });
   }
 
-  public groupSubmit(form:NgForm){
+  public groupSubmit(form: NgForm){
     this.groupsService.addGroup({...form.form.value, lectures: this.groupLectures, students: this.groupStudents}).subscribe({
       next:(result) => {
         this.router.navigate(["/groups", "list"])
       }
-    });
+    }); 
   }
 
   public addLectureToGroup(){
@@ -90,6 +90,7 @@ export class NewGroupComponent {
     });
     return result;
   }
+  
 
   public deleteLecture(id: number){
     if (id != null){

@@ -1,5 +1,4 @@
 import { RowDataPacket } from "mysql2";
-import { User } from "./user";
 
 export interface LectureInGroup extends RowDataPacket {
     id: number;

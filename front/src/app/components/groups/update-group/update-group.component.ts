@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ErrorComponent } from '../../helper/error/error.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { GroupsService } from '../../../services/groups.service';
 import { User } from '../../../models/user';
 import { Course } from '../../../models/course';
@@ -30,8 +30,8 @@ export class UpdateGroupComponent {
   public courses: Course[] = [];
 
   public title = '';
-  public start: string | null = null;
-  public end: string | null = null;
+  public start: Date | null = null;
+  public end: Date | null = null;
   public lecturer = '';
   public lecturer_id = 0;
   public course_id = 0;
@@ -69,15 +69,14 @@ export class UpdateGroupComponent {
       next: ([group]) => {
         console.log(group);
         this.title = group.title;
-        if (group.start != null) this.start = (group.start as unknown as string).split('T')[0];
-        if (group.end != null) this.end = (group.end as unknown as string).split('T')[0];
+        this.start = group.start;
+        this.end = group.end;
         this.lecturer = group.lecturer;
         this.lecturer_id = group.lecturer_id;
         this.course_id = group.course_id;
         this.courses_title = group.courses_title;
         this.groupLectures = group.lectures;
         this.groupStudents = group.students;
-        console.log(group.end);
       },
       error: (error) => {
         this.isError = true;

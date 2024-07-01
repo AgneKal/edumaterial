@@ -25,6 +25,12 @@ export class ListGroupsComponent {
   constructor (public authService: AuthService, private groupsServise: GroupsService){
     this.loadGroups();
   }
+
+  // public changeDate(date: Date){
+  //   let result = "";
+  //   result = date.toString().replace(/-/g, '\/').replace(/T.+/, '')
+  //   return result;
+  // }
   
   public deleteGroup(id: number){
     this.groupsServise.deleteGroup(id).subscribe((data) => {
