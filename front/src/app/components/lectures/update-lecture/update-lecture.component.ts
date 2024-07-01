@@ -24,8 +24,7 @@ export class UpdateLectureComponent {
     this.lectureForm = new FormGroup({
       'title': new FormControl(null),
       'description': new FormControl(null),
-      'lecture_date': new FormControl(null),
-      'group_id': new FormControl(null),
+      'lecture_date': new FormControl(Date),
       'files': new FormControl(null),
     });
     this.lecturesService.getLecture(this.route.snapshot.params['id']).subscribe((lecture) => {
@@ -33,7 +32,6 @@ export class UpdateLectureComponent {
           title: lecture.title,
           description: lecture.description,
           lecture_date: lecture.lecture_date,
-          group_id: lecture.group_id,
           files: []
         });
         this.filesList = lecture.files
@@ -43,7 +41,6 @@ export class UpdateLectureComponent {
 
   public lectureSubmit(){
     const values = this.lectureForm.value;
-    console.log(values);
     this.lecturesService.addLecture(new Lecture(values.title, values.lecture_date, values.description, values.group_id, this.uploadedFiles)).subscribe({
       next:(data) => {
         this.router.navigate(['/lectures','list']);

@@ -16,11 +16,14 @@ import { adminGuard } from './guards/admin.guard';
 import { ListLecturesComponent } from './components/lectures/list-lectures/list-lectures.component';
 import { NewLectureComponent } from './components/lectures/new-lecture/new-lecture.component';
 import { UpdateLectureComponent } from './components/lectures/update-lecture/update-lecture.component';
+import { NewStudentComponent } from './components/users/new-student/new-student.component';
 
 export const routes: Routes = [
     {path: "auth/signin", component: SigningComponent},
     {path: "auth/login", component: LoginComponent},
 
+
+    {path: "users/new", component: NewStudentComponent},
     {path: "users/list", component: ListUsersComponent, canActivate:[adminGuard]},
     {path: "users/:id", component: UpdateUserComponent, canActivate:[adminGuard]},
 

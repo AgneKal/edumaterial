@@ -20,6 +20,8 @@ export class NewLectureComponent {
 
   public lectureForm: FormGroup;
   public uploadedFiles: Files [] = [];
+  public fileNames: string [] = [];
+  
 
   constructor (private lecturesService: LecturesService, private router: Router){
       this.lectureForm = new FormGroup({
@@ -31,11 +33,16 @@ export class NewLectureComponent {
     });
   }
 
-  public onFileChange(event:any) {
+
+
+  public onFileChange(event: any) {
+    console.log(event);
     for (var i = 0; i < event.target.files.length; i++) { 
         this.uploadedFiles.push(event.target.files[i]);
+        this.fileNames.push(event.target.files[i].name);
+
     }
-  }
+  } 
  
   public lectureSubmit(){
     const values = this.lectureForm.value;

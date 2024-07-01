@@ -20,8 +20,6 @@ export class GroupController {
             const [students] = await pool.query<Student[]>(sql3, [result[i].id]);
             result[i].students = students;
        }
-       console.log(result);
-
         res.json(result);
     }
 

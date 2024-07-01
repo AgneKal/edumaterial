@@ -3,13 +3,13 @@ import { Lecture } from "../models/lecture";
 
 export class LectureController {
     static async getAll(req: any, res: any) {
-        const sql = "SELECT * FROM lectures";
+        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date FROM lectures l";
         const [result] = await pool.query<Lecture[]>(sql);
         res.json(result)
     }
 
     static async getLecture(req: any, res: any) {
-        const sql = "SELECT * FROM lectures WHERE id=?";
+        const sql = "SELECT l.id AS id, l.title AS title, l.description AS description, DATE_FORMAT(l.lecture_date, '%Y-%m-%d% %H:%i') AS lecture_date FROM lectures l WHERE id=?";
         const [result] = await pool.query<Lecture[]>(sql, [req.params.id]);
 
         if (result.length === 0){
