@@ -11,7 +11,7 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   public getUsers(type: number | null = null){
-    return this.http.get<User[]>('http://localhost:1212/users/?type='+type).pipe(map((users)=>{
+    return this.http.get<User[]>(`http://localhost:1212/users/${type ? `?type=${type}` : ''}`).pipe(map((users)=>{
       const usersO: User[] = [];
       users.forEach((user) => {
         usersO.push( new User(user.email, user.id, user.name, user.surname, user.phone, user.password, user.type, user.token, user.img));

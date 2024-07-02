@@ -5,6 +5,7 @@ export class Files {
         public original_name: string,
         public id?: number,
         public url?: string,
+        public visibility?: boolean
     ){}
 }
 

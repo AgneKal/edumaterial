@@ -2,15 +2,41 @@ import fs from "fs";
 import path from "path";
 import { pool } from "../db/connect";
 import { Lecture } from "../models/lecture";
+import { File } from "../models/file";
 
 export class LectureController {
     static async getAll(req: any, res: any) {
-        let sql = "SELECT l.id AS id, l.title AS title, l.description AS description, l.group_id AS group_id, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date, g.title AS group_title  FROM lectures l LEFT JOIN `groups` g ON g.id=l.group_id";
+        let sql = "SELECT l.id AS id, l.title AS title, l.description AS description, l.group_id AS group_id, DATE_FORMAT(l.lecture_date, '%Y-%m-%d %H:%i') AS lecture_date, g.title AS group_title  FROM lectures l LEFT JOIN `groups` g ON g.id=l.group_id WHERE 1=1";
         
         if (req.user.type === 2) {
-            sql += " WHERE l.group_id in (SELECT group_id from groups_students WHERE student_id = ?)"
+            sql += " AND l.group_id in (SELECT group_id from groups_students WHERE student_id = ?)"
         }
+
+        if (req.query.group_id) {
+            sql += ` AND l.group_id = ${req.query.group_id} `
+        }
+
         const [result] = await pool.query<Lecture[]>(sql, [req.user.id]);
+        
+    //     for (let i = 0; i < result.length; i++) {
+    //         const sql2 = `SELECT f.file AS file, f.title AS title, f.visibility AS visibility FROM file f WHERE lecture_id = ?`;
+    //         const [files] = await pool.query<File[]>(sql2, [result[i].id]);
+    //    }
+
+        for (let i = 0; i < result.length; i++) {
+            let sql2 = `SELECT f.id AS id, f.file_name AS file_name, f.original_name AS original_name, f.visibility AS visibility FROM lectures_files f WHERE lecture_id = ?`;
+            if (req.user.type === 2) {
+                sql2 += " AND f.visibility = 1"
+            }
+            const [files] = await pool.query<File[]>(sql2, [result[i].id]);
+            result[i].files = files.map(f => ({
+                ...f,
+                url: req.protocol+"://"+req.get("host")+"/upload/"+f.file_name
+            }));
+            
+        }
+        
+
         res.json(result)
     }
 
@@ -88,24 +114,24 @@ export class LectureController {
     }
 
     static async patchFile(req: any, res: any){
-        const sql = "UPDATE lectures_files set visible = ? WHERE id=?"
-        await pool.query(sql, [req.body.visible, req.params.id]);
+        const sql = "UPDATE lectures_files set visibility = ? WHERE id=?"
+        await pool.query(sql, [req.body.visibility, req.params.id]);
         res.json({
             success: true,
-            visible: req.body.visible
+            visibility: req.body.visibility
         })
     }
 
     static async deleteFile(req: any, res: any){
-        const sql = "SELECT filename FROM lectures_files where id=?";
-        const [result, fields] = await pool.query<any>(sql, [req.params.id]);
-        if (result.length === 0){
-            res.status(404).json({
-                'text': 'Pateiktas įrašas nerastas'
-            });
-        }
-        const file = result[0];
-        await fs.unlinkSync(path.join(__dirname, file.filename))
+        // const sql = "SELECT file_name AS file_name FROM lectures_files where id=?";
+        // const [result, fields] = await pool.query<any>(sql, [req.params.id]);
+        // if (result.length === 0){
+        //     res.status(404).json({
+        //         'text': 'Pateiktas įrašas nerastas'
+        //     });
+        // }
+        // const file = result[0];
+        // await fs.unlinkSync(path.join(__dirname, file.filename))
 
         const deleteSql = "DELETE FROM lectures_files WHERE id=?";
         await pool.query(deleteSql, [req.params.id]);
@@ -114,5 +140,6 @@ export class LectureController {
             success: true
         })
     }
+
 
 }

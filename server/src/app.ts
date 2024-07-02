@@ -26,6 +26,7 @@ app.use((err: any, req: any, res: any, next: any) => {
 })
 
 app.use("/upload", express.static(path.join("./upload") ));
+app.use("/img", express.static(path.join("./img") ));
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);

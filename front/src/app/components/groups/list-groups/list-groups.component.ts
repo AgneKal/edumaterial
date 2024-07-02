@@ -17,17 +17,17 @@ export class ListGroupsComponent {
   public groups: Group[] = [];
 
   private loadGroups(){
-    this.groupsServise.getGroups().subscribe((data) => {
+    this.groupsService.getGroups().subscribe((data) => {
       this.groups = data;
       });
     }
     
-  constructor (public authService: AuthService, private groupsServise: GroupsService){
+  constructor (public authService: AuthService, private groupsService: GroupsService){
     this.loadGroups();
   }
   
   public deleteGroup(id: number){
-    this.groupsServise.deleteGroup(id).subscribe((data) => {
+    this.groupsService.deleteGroup(id).subscribe((data) => {
       this.loadGroups();
     });
   }

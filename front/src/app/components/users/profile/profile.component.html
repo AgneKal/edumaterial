@@ -1,37 +1,66 @@
 <div class="card mt-3">
-    <div class="card-header">Mano vartotojas</div>
+    <h4 class="card-header text-bg-secondary">Mano profilis</h4>
     <div class="card-body">
         <form action="" [formGroup]="profileForm" (ngSubmit)="onSubmitForm()">
-            <div class="mb-3">
-                <label for="" class="form-label">El. pašto adresas</label>
-                <input type="text" class="form-control" formControlName="email">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">El. pašto adresas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" formControlName="email">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Vardas</label>
-                <input type="text" class="form-control" formControlName="name">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Vardas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Pavardė</label>
-                <input type="text" class="form-control" formControlName="surname">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Pavardė</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" formControlName="surname">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Telefono numeris</label>
-                <input type="text" class="form-control" formControlName="phone">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Telefono numeris</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" formControlName="phone">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Slaptažodis</label>
-                <input type="password" class="form-control" formControlName="password">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Slaptažodis</label>
+                </div>
+                <div class="col-10">
+                    <input type="password" class="form-control" formControlName="password">
+                </div>
             </div>
-            <hr>
-            <div class="my-3">
-                <img [src]="imagePreview" alt="">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <div class="my-1">
+                        <img [src]="imagePreview" alt="">
+                    </div>
+                    <div>
+                        <div class="btn btn btn-outline-secondary fw-semibold fs-6" type="button" (click)="profileImagePicker.click()">Įkelti nuotrauką</div>
+                        <input type="file" name="userImage" class="d-none" #profileImagePicker (change)="onProfileImageChange($event)">
+                    </div>
+                    <hr>
+                </div>
             </div>
-            <div>
-                <div class="button btn btn-info" type="button" (click)="profileImagePicker.click()">Įkelti paveikslėlį</div>
-                <input type="file" name="userImage" class="d-none" #profileImagePicker (change)="onProfileImageChange($event)">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <button type="submit" class="btn btn-secondary btn-lg fw-semibold fs-6">Atnaujinti profilį</button>
+                </div>
             </div>
-            <hr>
-            <button type="submit" class="btn btn-success">Išsaugoti keitimus</button>
         </form>
     </div>
 </div>

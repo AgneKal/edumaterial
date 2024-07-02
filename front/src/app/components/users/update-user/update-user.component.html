@@ -1,39 +1,65 @@
 <div class="card mt-3">
-    <div class="card-header">Redaguoti vartotoją</div>
+    <h4 class="card-header text-bg-secondary">Redaguoti vartotoją</h4>
     <div class="card-body">
         <form (ngSubmit)="userSubmit(f)" #f="ngForm">
-            <div class="mb-3">
-                <label for="" class="form-label">El. pašto adresas</label>
-                <input type="text" class="form-control" name="email" value="" ngModel [(ngModel)]="email">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">El. pašto adresas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="email" value="" ngModel [(ngModel)]="email">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Vardas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Vardas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Pavardė</label>
-                <input type="text" class="form-control" name="surname" value="" ngModel [(ngModel)]="surname">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Pavardė</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="surname" value="" ngModel [(ngModel)]="surname">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Telefono numeris</label>
-                <input type="text" class="form-control" name="phone" value="" ngModel [(ngModel)]="phone">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Telefono numeris</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="phone" value="" ngModel [(ngModel)]="phone">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Slaptažodis</label>
-                <input type="password" class="form-control" name="password" value="" ngModel [(ngModel)]="password">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Slaptažodis</label>
+                </div>
+                <div class="col-10">
+                    <input type="password" class="form-control" name="password" value="" ngModel [(ngModel)]="password">
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="" class="form-label">Tipas</label>
-                <select class="form-control" name="type" ngModel [(ngModel)]="type">
-                    <option value="0">Administratorius</option>
-                    <option value="1">Dėstytojas</option>
-                    <option value="2">Studentas</option>
-                </select>
-
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Tipas</label>
+                </div>
+                <div class="col-10">
+                    <select class="form-control" name="type" ngModel [(ngModel)]="type">
+                        <option value="0">Administratorius</option>
+                        <option value="1">Dėstytojas</option>
+                        <option value="2">Studentas</option>
+                    </select>
+                </div>
             </div>
-            <button class="btn btn-success" type="submit">Atnaujinti</button>
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <button class="btn btn-secondary fs-6 fw-semibold" type="submit">Atnaujinti</button>
+                </div>
+            </div>
         </form>
-
     </div>
 </div>

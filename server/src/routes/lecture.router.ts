@@ -17,7 +17,7 @@ const upload = multer({ storage });
 const lectureRouter = express.Router();
 
 lectureRouter.get('/', authMiddleware, LectureController.getAll);
-lectureRouter.get('/:id', authMiddleware, LectureController.getLecture);
+lectureRouter.get('/:id', authMiddleware, lecturerMiddleware, LectureController.getLecture);
 lectureRouter.post('/', authMiddleware, lecturerMiddleware, upload.array('files'), LectureController.insert);
 lectureRouter.put('/:id', authMiddleware, lecturerMiddleware, upload.array('files'), LectureController.update);
 lectureRouter.delete('/:id', authMiddleware, lecturerMiddleware, LectureController.delete);
@@ -25,4 +25,4 @@ lectureRouter.delete('/:id', authMiddleware, lecturerMiddleware, LectureControll
 lectureRouter.patch('/files/:id', authMiddleware, lecturerMiddleware, LectureController.patchFile);
 lectureRouter.delete('/files/:id', authMiddleware, lecturerMiddleware, LectureController.deleteFile);
  
-export { lectureRouter } 
+export { lectureRouter }

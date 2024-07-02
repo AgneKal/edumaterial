@@ -42,6 +42,7 @@ build/Release
 server/node_modules/
 server/jspm_packages/
 server/upload/
+server/img/
 front/node_modules/
 front/jspm_packages/
 

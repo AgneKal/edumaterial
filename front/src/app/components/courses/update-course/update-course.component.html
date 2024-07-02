@@ -1,16 +1,23 @@
 <app-error [isError]="isError" [text]="errorText"></app-error>
 
 <div *ngIf="!isError" class="card mt-3">
-    <div class="card-header">
-        Atnaujinti kursą
-    </div>
+    <h5 class="card-header text-bg-warning">Redaguoti kursą</h5>
     <div class="card-body">
         <form (ngSubmit)="courseSubmit(f)" #f="ngForm">
-            <div class="mb-3">
-                <label for="" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="title" value="" ngModel [(ngModel)]="title">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Pavadinimas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="title" value="" ngModel [(ngModel)]="title">
+                </div>
             </div>
-            <button class="btn btn-success" type="submit">Atnaujinti</button>
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <button class="btn btn-warning btn-lg fw-semibold fs-6" type="submit">Atnaujinti</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

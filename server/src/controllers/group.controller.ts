@@ -3,10 +3,14 @@ import { Group, LectureInGroup, Student } from "../models/group";
 
 export class GroupController {
     static async getAll(req: any, res: any) {
-        let sql = "SELECT g.id AS id, g.title AS title, DATE_FORMAT(g.start, '%Y-%m-%d') AS start, DATE_FORMAT(g.end, '%Y-%m-%d') AS end, CONCAT (u.name, ' ', u.surname) AS lecturer, u.id AS lecturer_id, c.title AS courses_title, c.id AS course_id FROM `groups` g LEFT JOIN users u ON g.lecturer_id=u.id LEFT JOIN courses c ON g.course_id=c.id";
+        let sql = "SELECT g.id AS id, g.title AS title, DATE_FORMAT(g.start, '%Y-%m-%d') AS start, DATE_FORMAT(g.end, '%Y-%m-%d') AS end, CONCAT (u.name, ' ', u.surname) AS lecturer, u.id AS lecturer_id, c.title AS courses_title, c.id AS course_id FROM `groups` g LEFT JOIN users u ON g.lecturer_id=u.id LEFT JOIN courses c ON g.course_id=c.id WHERE 1=1";
         
         if (req.params.id) {
-            sql += ` WHERE g.id=${req.params.id}`; 
+            sql += ` AND g.id=${req.params.id}`; 
+        }
+
+        if (req.user.type === 2) {
+            sql += ` AND g.id in (SELECT group_id from groups_students WHERE student_id = ${req.user.id})`
         }
 
         const [result] = await pool.query<Group[]>(sql);

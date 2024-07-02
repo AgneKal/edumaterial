@@ -28,7 +28,7 @@ export class NewLectureComponent {
   public groups: Group[] =[];
   public group_id: number = 0;
   
-
+  
   constructor (private lecturesService: LecturesService, private groupsService: GroupsService, private router: Router){
     this.lectureForm = new FormGroup({
       'title': new FormControl(null),

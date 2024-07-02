@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from '../../helper/error/error.component';
 import { LecturesService } from '../../../services/lectures.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Files, Lecture } from '../../../models/lecture';
 import { Group } from '../../../models/group';
 import { GroupsService } from '../../../services/groups.service';
@@ -11,7 +11,7 @@ import { GroupsService } from '../../../services/groups.service';
 @Component({
   selector: 'app-update-lecture',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ErrorComponent],
+  imports: [CommonModule, ReactiveFormsModule, ErrorComponent, RouterLink],
   templateUrl: './update-lecture.component.html',
   styleUrl: './update-lecture.component.css'
 })
@@ -20,6 +20,9 @@ export class UpdateLectureComponent {
   public uploadedFiles: Files[] = [];
   public filesList: Files[] = [];
 
+  public fileNames: string [] = [];
+
+  
   isError: boolean = false;
   errorText: any;
 
@@ -43,7 +46,7 @@ export class UpdateLectureComponent {
           files: []
         });
         this.filesList = lecture.files
-        this.lectureForm.updateValueAndValidity();;
+        this.lectureForm.updateValueAndValidity();
       });
     this.groupsService.getGroups().subscribe({
       next:(groups) => {
@@ -56,7 +59,8 @@ export class UpdateLectureComponent {
     const values = this.lectureForm.value;
     this.lecturesService.updateLecture(new Lecture(values.title, values.lecture_date, values.description, values.group_id, this.uploadedFiles, '', this.route.snapshot.params['id'])).subscribe({
       next:(data) => {
-        this.router.navigate(['/lectures','list']);
+        //this.router.navigate(['/lectures','list']);
+        location.reload()
       },
       error:(error) => {
         this.isError = true;
@@ -64,11 +68,30 @@ export class UpdateLectureComponent {
       }
     });
   }
-
+  
+  public toggleFileVisibility(event: any, id: number) {
+    event.preventDefault();
+    const visibility = event.target.checked === true;
+    this.lecturesService.toggleFileVisibility(id, visibility).subscribe({
+      next: (result: any) => {
+        event.target.checked = result.visibility;
+      }
+    })
+  }
+  
+  
   public onFileChange(event:any) {
     for (var i = 0; i < event.target.files.length; i++) { 
         this.uploadedFiles.push(event.target.files[i]);
+        this.fileNames.push(event.target.files[i].name);
     }
+  }
+
+  public deleteFile(id: number) {
+    this.lecturesService.deleteFile(id).subscribe((data) => {
+      window.location.reload();
+      
+    });
   }
 
 }

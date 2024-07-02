@@ -6,5 +6,5 @@ import { AuthService } from '../services/auth.service';
 export const viewGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  return authService.canViewCourses() ? true : router.navigate(['/']);
+  return authService.canViewGroup() ? true : router.navigate(['/']);
 };

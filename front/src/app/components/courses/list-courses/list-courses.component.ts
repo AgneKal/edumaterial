@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Course } from '../../../models/course';
 import { CoursesService } from '../../../services/courses.service';
 import { AuthService } from '../../../services/auth.service';
@@ -22,7 +22,7 @@ export class ListCoursesComponent {
       });
     }
     
-  constructor(private coursesService: CoursesService, public authService: AuthService){
+  constructor(private coursesService: CoursesService, public authService: AuthService, public router: Router){
     this.loadCourses();
   }
   
@@ -30,6 +30,10 @@ export class ListCoursesComponent {
     this.coursesService.deleteCourse(id).subscribe((data) => {
       this.loadCourses();
     });
+  }
+
+  public addNewCourseRout(){
+    this.router.navigate(['/course', '/new']);
   }
 
 }

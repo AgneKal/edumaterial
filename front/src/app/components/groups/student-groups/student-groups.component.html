@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <h5 class="card-header text-bg-danger ">Grupės ir paskaitos</h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="h5">
+                            <th>Eilės Nr.</th>
+                            <th>Grupės pavadinimas</th>
+                            <th>Kursas</th>
+                            <th>Pradžia</th>
+                            <th>Pabaiga</th>
+                            <th>Dėstytojas</th>
+                            <th>Paskaitų informacija</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let group of groups; let i = index">
+                            <td class="align-middle">{{ i + 1 }}</td>
+                            <td class="align-middle">{{ group.title }}</td>
+                            <td class="align-middle">{{ group.courses_title }}</td>
+                            <td class="align-middle">{{ group.start! }}</td>
+                            <td class="align-middle">{{ group.end! }}</td>
+                            <td class="align-middle">{{ group.lecturer }}</td>
+                            <td class="align-middle"><button class="btn btn-sm btn-outline-danger fw-semibold fs-6" (click)="viewLectures(group.id!)">Peržiūrėti Paskaitas</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

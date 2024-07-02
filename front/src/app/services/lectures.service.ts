@@ -12,8 +12,8 @@ export class LecturesService {
   constructor(private http: HttpClient, public authServices: AuthService) { }
 
 
-  public getLectures() {
-    return this.http.get<Lecture[]>('http://localhost:1212/lectures/')
+  public getLectures(id: number | null = null) {
+    return this.http.get<Lecture[]>(`http://localhost:1212/lectures/${id ? `?group_id=${id}`: ''}`)
   }
 
   public getLecture(id: number){
@@ -45,7 +45,15 @@ export class LecturesService {
     return this.http.put<Lecture>('http://localhost:1212/lectures/'+lecture.id, formData);
   }
 
+  public toggleFileVisibility(fileId: number, visibility: boolean){
+    return this.http.patch('http://localhost:1212/lectures/files/'+fileId, {visibility: visibility});
+  }
+
   public deleteLecture(id: number){
     return this.http.delete('http://localhost:1212/lectures/'+id);
+  }
+
+  public deleteFile(id: number) {
+    return this.http.delete('http://localhost:1212/lectures/files/'+id);
   }
 }

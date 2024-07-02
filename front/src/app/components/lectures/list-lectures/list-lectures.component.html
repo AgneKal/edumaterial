@@ -1,27 +1,31 @@
+<div class="nav-item mt-3">
+    <a class="btn btn-success btn-lg fw-semibold fs-6" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="/lectures/new">Nauja paskaita</a>
+</div>
+
 <div class="card mt-3">
-    <div class="card-header">
-        Paskaitų sąrašas
-    </div>
+    <h4 class="card-header text-bg-success">Paskaitų sąrašas</h4>
     <div class="card-body">
-        <table class="table col-md-12">
+        <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Pavadinimas</th>
-                    <th>Data</th>
-                    <th>Grupė</th>
-                    <th *ngIf="authService.canEditLecturesAndGroups()">Veiksmai</th>
+                <tr class="h5">
+                    <th class="col-1">Nr.</th>
+                    <th class="col-2">Pavadinimas</th>
+                    <th class="col-3">Aprašymas</th>
+                    <th class="col-2">Data</th>
+                    <th class="col-2">Grupė</th>
+                    <th class="col-2" *ngIf="authService.canEditLecturesAndGroups()">Veiksmai</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let lecture of lectures; let i = index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ lecture.title }}</td>
-                    <td>{{ lecture.lecture_date.toString().substring(0, 10) }}</td>
-                    <td>{{ lecture.group_title }}</td>
-                    <td *ngIf="authService.canEditLecturesAndGroups()">
-                        <a class="btn btn-success" [routerLink]="['/lectures', lecture.id]">Redaguoti</a>&nbsp;&nbsp;
-                        <button class="btn btn-danger" (click)="deleteCourse(lecture.id!)">Ištrinti</button>
+                    <td class="align-middle">{{ i + 1 }}</td>
+                    <td class="align-middle">{{ lecture.title }}</td>
+                    <td class="align-middle">{{ lecture.description }}</td>
+                    <td class="align-middle">{{ lecture.lecture_date }}</td>
+                    <td class="align-middle">{{ lecture.group_title }}</td>
+                    <td class="align-middle" *ngIf="authService.canEditLecturesAndGroups()">
+                        <a class="btn btn-sm btn-outline-success fw-semibold fs-6 me-3" [routerLink]="['/lectures', lecture.id]">Redaguoti</a>
+                        <button class="btn btn-sm btn-outline-danger fw-semibold fs-6" (click)="deleteCourse(lecture.id!)">X</button>
                     </td>
                 </tr>
             </tbody>

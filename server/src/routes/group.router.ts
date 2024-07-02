@@ -5,8 +5,8 @@ import { GroupController } from "../controllers/group.controller";
 
 const groupRouter = express.Router();
 
-groupRouter.get('/', authMiddleware, lecturerMiddleware, GroupController.getAll);
-groupRouter.get('/:id', authMiddleware, lecturerMiddleware, GroupController.getAll);
+groupRouter.get('/', authMiddleware, GroupController.getAll);
+groupRouter.get('/:id', authMiddleware, GroupController.getAll);
 groupRouter.post('/', authMiddleware, lecturerMiddleware, GroupController.insertGroup);
 groupRouter.put('/:id', authMiddleware, lecturerMiddleware, GroupController.update);
 groupRouter.delete('/:id', authMiddleware, lecturerMiddleware, GroupController.delete);

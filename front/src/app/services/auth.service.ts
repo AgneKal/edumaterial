@@ -42,14 +42,14 @@ export class AuthService {
   }
 
   public canEditLecturesAndGroups(){
-    return (this.user != null && (this.user.type == 0 || this.user.type == 1))
+    return (this.user != null && (this.user.type == 1))
   }
 
   public canEditUsers(){
     return (this.user != null && this.user.type == 0);
   }
 
-  public canViewCourses(){
+  public canViewGroup(){
     return (this.user != null && this.user.type == 2);
   }
 

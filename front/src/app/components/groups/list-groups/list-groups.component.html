@@ -1,37 +1,38 @@
-<div class="row mt-3">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">Grupių sąrašas</div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Eilės Nr.</th>
-                            <th>Grupės pavadinimas</th>
-                            <th>Kursas</th>
-                            <th>Pradžia</th>
-                            <th>Pabaiga</th>
-                            <th>Dėstytojas</th>
-                            <th>Veiksmai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let group of groups; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ group.title }}</td>
-                            <td>{{ group.courses_title }}</td>
-                            <td>{{ group.start! }}</td>
-                            <td>{{ group.end! }}</td>
-                            <td>{{ group.lecturer }}</td>
+<div class="nav-item mt-3">
+    <a class="btn btn-info btn-lg fw-semibold fs-6" *ngIf="authService.canEditLecturesAndGroups()" aria-current="page" routerLink="/groups/new">Nauja grupė</a>
+</div>
 
-                            <td *ngIf="authService.canEditLecturesAndGroups()">
-                                <a class="btn btn-success" [routerLink]="['/groups', group.id]">Redaguoti</a>&nbsp;&nbsp;
-                                <button class="btn btn-danger" (click)="deleteGroup(group.id!)">Ištrinti</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
+<div class="card mt-3">
+    <h4 class="card-header text-bg-info">Grupių sąrašas</h4>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr class="h5">
+                    <th>Nr.</th>
+                    <th>Grupė</th>
+                    <th>Kursas</th>
+                    <th>Pradžia</th>
+                    <th>Pabaiga</th>
+                    <th>Dėstytojas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let group of groups; let i = index">
+                    <td class="align-middle">{{ i + 1 }}</td>
+                    <td class="align-middle">{{ group.title }}</td>
+                    <td class="align-middle">{{ group.courses_title }}</td>
+                    <td class="align-middle">{{ group.start! }}</td>
+                    <td class="align-middle">{{ group.end! }}</td>
+                    <td class="align-middle">{{ group.lecturer }}</td>
+
+                    <td class="align-middle" *ngIf="authService.canEditLecturesAndGroups()">
+                        <a class="btn btn-sm btn-outline-info fw-semibold fs-6 me-3" [routerLink]="['/groups', group.id]">Redaguoti</a>
+                        <button class="btn btn-sm btn-outline-danger fw-semibold fs-6" (click)="deleteGroup(group.id!)">X</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

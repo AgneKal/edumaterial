@@ -1,41 +1,67 @@
 <app-error [isError]="isError" [text]="errorText"></app-error>
 <div *ngIf="!isError" class="card mt-3">
-    <div class="card-header">
-        Pridėti naują paskaitą
-    </div>
+    <h4 class="card-header text-bg-success">Nauja paskaita</h4>
     <div class="card-body">
         <form [formGroup]="lectureForm" (ngSubmit)="lectureSubmit()">
-            <div class=" mb-3">
-                <label for="" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="title" value="" ngModel minlength="2" maxlength="64" required formControlName="title">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Pavadinimas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="title" value="" ngModel minlength="2" maxlength="64" required formControlName="title">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Aprašymas</label>
-                <input type="text" class="form-control" name="description" value="" ngModel minlength="2" maxlength="255" formControlName="description">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Aprašymas</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" name="description" value="" ngModel minlength="2" maxlength="255" formControlName="description">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Data</label>
-                <input type="datetime-local" class="form-control" name="lecture_date" value="" ngModel formControlName="lecture_date">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Data</label>
+                </div>
+                <div class="col-4">
+                    <input type="datetime-local" class="form-control" name="lecture_date" value="" ngModel formControlName="lecture_date">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label fw-bold">Grupė</label>
-                <select class="form-control" ngModel formControlName="group_id" name="group_id">
-                    <option *ngFor="let group of groups; let i=index" [value]="group.id">{{ group.title }}</option>
-                </select>
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2">
+                    <label for="" class="form-label h5 float-end">Grupė</label>
+                </div>
+                <div class="col-10">
+                    <select class="form-control" ngModel formControlName="group_id" name="group_id">
+                        <option *ngFor="let group of groups; let i=index" [value]="group.id">{{ group.title }}</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <input type="file" name="files" multiple formControlName="files" (change)="onFileChange($event)">
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <div class="btn btn-outline-success fw-semibold fs-6" type="button" (click)="profileImagePicker.click()">Įkelti paskaitų dokumentus</div>
+                    <input type="file" name="files" class="d-none" #profileImagePicker multiple formControlName="files" (change)="onFileChange($event)">
+                </div>
             </div>
-            <div class="mb-3">
-                <ul class="list-group list-unstyled" name="filesList">
-                    <li class="mt-2" *ngFor="let file of fileNames; let i=index">
-                        <a target="_blank" href="#">
-                            {{ file }}
-                        </a>
-                    </li>
-                </ul>
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <ul class="list-group list-unstyled" name="filesList">
+                        <li class="mt-2" *ngFor="let file of fileNames; let i=index">
+                            <a target="_blank" href="#">
+                                {{ file }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <button class="btn btn-success mt-3" type="submit">Pridėti</button>
+            <div class="mb-3 row g-2 d-flex align-items-center">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <button class="btn btn-success btn-lg fw-semibold fs-6" type="submit">Sukurti naują paskaitą</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

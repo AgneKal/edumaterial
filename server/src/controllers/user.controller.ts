@@ -36,6 +36,7 @@ export class UserController {
         } else {
             res.json(result[0]);
         }
+        
     }
 
     static async updateUserRecord(id: any, email: any, name: any, surname: any, phone: any, password: any, type: any, fileURL: any){
@@ -69,12 +70,19 @@ export class UserController {
 
         if (fileURL != null){
             const [oldUser] = await pool.query<User[]>("SELECT * FROM users WHERE id=?", [id]);
-            if(oldUser[0].img)fs.unlinkSync(path.join('./img/'+oldUser[0].img.split('/').pop()));
+            if (oldUser[0].img) {
+                try {
+                    fs.unlinkSync(path.join('./img/'+oldUser[0].img.split('/').pop()));
+                } catch (e) {
+                    console.error(e);
+                }
+            }
             await pool.query("UPDATE users SET img=? WHERE id=? ",[
                 fileURL,
                 id
             ]);
         }
+        
     }
 
     static async update(req: any, res: any){
@@ -90,7 +98,7 @@ export class UserController {
         res.json({  
             success: true
         });
-
+        
     }
 
     static async delete(req: any, res: any){
@@ -98,7 +106,7 @@ export class UserController {
         res.json({
             success:true
         });
-
+        
     }
 
 
@@ -111,5 +119,6 @@ export class UserController {
         res.json({
             success:true
         });
+        
     }
 }

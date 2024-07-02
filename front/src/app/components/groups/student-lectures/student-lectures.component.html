@@ -1,0 +1,41 @@
+<div class="card mt-3">
+    <h5 class="card-header text-bg-danger ">Paskaitos informacija</h5>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-1">Nr.</th>
+                    <th class="col-2">Pavadinimas</th>
+                    <th class="col-4">Aprašymas</th>
+                    <th class="col-2">Data ir laikas</th>
+                    <th class="col-3">Failai</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lecture of lectures; let i = index">
+                    <td class="col-1 align-middle">{{ i + 1 }}</td>
+                    <td class="col-2 align-middle">{{ lecture.title }}</td>
+                    <td class="col-4 align-middle">{{ lecture.description }}</td>
+                    <td class="col-2 align-middle">{{ lecture.lecture_date }}</td>
+                    <td class="col-3 align-middle">
+                        <ul class="list-group list-unstyled" name="filesList">
+                            <li class="mt-2" *ngFor="let file of lecture.files; let i=index">
+                                <a target="_blank" href="{{ file.url }}">
+                                    {{ file.original_name }}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- <table>
+                            <tbody>
+                                <tr *ngFor="let file of lecture.files">
+                                    <td>{{ file.original_name }}</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
